@@ -19,7 +19,7 @@ def process_file(file_name)
 	begin
 		IO.foreach(file_name) do |line|
 			# call cleanup_title method to extract song titles
-			line = cleanup_title(line)
+			title = cleanup_title(line)
 		end
 
 		puts "Finished. Bigram model built.\n"
@@ -31,8 +31,8 @@ end
 
 # Get song title
 def cleanup_title(line)
-	line = line.gsub /(.*)>/, ''
-	return line
+	title = line.gsub /(.*)>/, ''
+	return title
 end
 
 
