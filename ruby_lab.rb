@@ -34,7 +34,7 @@ end
 
 # Get song title
 def cleanup_title(line)
-	title = line.gsub(/((.*)>)/, '')
+	title = line.gsub(/((.*)>)/, '') #strip everything in front of song title
 	title = title.gsub(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|feat..*|\?.*|\¿.*|\!.*|\¡.*|\..*|\;.*|\&.*|\@.*|\%.*|\#.*/, '')
 	return title.downcase
 end
