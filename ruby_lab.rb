@@ -20,7 +20,10 @@ def process_file(file_name)
 		IO.foreach(file_name) do |line|
 			# call cleanup_title method to extract song titles
 			title = cleanup_title(line)
-			puts title
+			#ignore non-english characters
+			if title[/(\w|\s)*/] == title
+				puts title
+			end
 		end
 		puts "Finished. Bigram model built.\n"
 	# rescue
@@ -29,13 +32,11 @@ def process_file(file_name)
 	 end
 end
 
-#(  [  {  \  /  _  -  :  "  `  +  =  *  feat.
-#?  ¿  !  ¡  .  ;  &  @  %  #  |
 # Get song title
 def cleanup_title(line)
 	title = line.gsub(/((.*)>)/, '')
 	title = title.gsub(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|feat..*|\?.*|\¿.*|\!.*|\¡.*|\..*|\;.*|\&.*|\@.*|\%.*|\#.*/, '')
-	return title
+	return title.downcase
 end
 
 
