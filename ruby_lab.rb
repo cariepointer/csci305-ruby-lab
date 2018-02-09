@@ -4,13 +4,13 @@
 #
 # CSCI 305 - Ruby Programming Lab
 #
-# <firstname> <lastname>
-# <email-address>
+# Carie Pointer
+# cariepointer@yahoo.com
 #
 ###############################################################
 
 $bigrams = Hash.new # The Bigram data structure
-$name = "<firstname> <lastname>"
+$name = "Carie Pointer"
 
 # function to process each line of a file and extract the song titles
 def process_file(file_name)
@@ -18,7 +18,8 @@ def process_file(file_name)
 
 	begin
 		IO.foreach(file_name) do |line|
-			# do something for each line
+			# call cleanup_title method to extract song titles
+			line = cleanup_title(line)
 		end
 
 		puts "Finished. Bigram model built.\n"
@@ -27,6 +28,13 @@ def process_file(file_name)
 		exit 4
 	end
 end
+
+# Get song title
+def cleanup_title(line)
+	line = line.gsub /(.*)>/, ''
+	return line
+end
+
 
 # Executes the program
 def main_loop()
