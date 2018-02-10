@@ -20,10 +20,10 @@ def process_file(file_name)
 		IO.foreach(file_name) do |line|
 			# call cleanup_title method to extract song titles
 			title = cleanup_title(line)
+
 			#ignore non-english characters
-			#title = "this is a love song is a dog"
-			if title[/(\w|\s)*/] == title
-				#title = "this is a love song is a dog this cat"
+			if title[/(\w|\s|\')*/] == title #filter out only english words?
+
 				title = title.split
 				i = 0;
 
@@ -31,7 +31,7 @@ def process_file(file_name)
 					hasKey = $bigrams[title[i]]
 					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]]
 
-					break if title[i+1].nil? #break if this is the last word in the array
+					#break if title[i+1].nil? #break if this is the last word in the array --note: self test #4 fails when this is executed
 
 					if hasChild #if child of primary key exists, add one to the count
 						cur = $bigrams[title[i]][title[i+1]];
@@ -51,7 +51,7 @@ def process_file(file_name)
 				# }
 			end
 		end
-		puts $bigrams;
+		#puts $bigrams;
 		puts "Finished. Bigram model built.\n"
 	# rescue
 	# 	STDERR.puts "Could not open file"
@@ -62,6 +62,7 @@ end
 # Get song title
 def cleanup_title(line)
 	title = line.gsub(/((.*)>)/, '') #strip everything in front of song title
+	#Regex to filter multiple symbols
 	title = title.gsub(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|feat..*|\?.*|\¿.*|\!.*|\¡.*|\..*|\;.*|\&.*|\@.*|\%.*|\#.*/, '')
 	return title.downcase
 end
