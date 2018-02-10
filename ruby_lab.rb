@@ -21,10 +21,37 @@ def process_file(file_name)
 			# call cleanup_title method to extract song titles
 			title = cleanup_title(line)
 			#ignore non-english characters
+			#title = "this is a love song is a dog"
 			if title[/(\w|\s)*/] == title
-				puts title
+				#title = "this is a love song is a dog this cat"
+				title = title.split
+				i = 0;
+
+				while i <= title.size-1 #loop through array of words
+					hasKey = $bigrams[title[i]]
+					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]]
+
+					break if title[i+1].nil? #break if this is the last word in the array
+
+					if hasChild #if child of primary key exists, add one to the count
+						cur = $bigrams[title[i]][title[i+1]];
+						$bigrams[title[i]][title[i+1]] = cur + 1;
+					elsif hasKey #if primary key exists, add new child with initial count = 1
+						$bigrams[title[i]][title[i+1]] = 1;
+					else #if primary key does not exist, add it and child key
+						$bigrams[title[i]] = {title[i+1] => 1};
+					end
+					i = i + 1;
+				end
+				#for each word in string
+				# title.each { |word|
+				# 	if $bigrams.key?(word)
+				# 		#puts "YES"
+				# 	end
+				# }
 			end
 		end
+		puts $bigrams;
 		puts "Finished. Bigram model built.\n"
 	# rescue
 	# 	STDERR.puts "Could not open file"
