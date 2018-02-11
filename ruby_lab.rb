@@ -22,7 +22,7 @@ def process_file(file_name)
 			title = cleanup_title(line)
 
 			#ignore non-english characters
-			if title[/(\w|\s|\')*/] == title #filter out only english words?
+			if title[/(\w|\s|\')*/] == title #filter out only english words
 
 				title = title.split
 				i = 0;
@@ -31,7 +31,7 @@ def process_file(file_name)
 					hasKey = $bigrams[title[i]]
 					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]]
 
-					break if title[i+1].nil? #break if this is the last word in the array --note: self test #4 fails when this is executed
+					break if title[i+1].nil?  #break if this is the last word in the array
 
 					if hasChild #if child of primary key exists, add one to the count
 						cur = $bigrams[title[i]][title[i+1]];
@@ -45,7 +45,7 @@ def process_file(file_name)
 				end
 			end
 		end
-		#puts mcw('happy')
+		#puts $bigrams
 		puts "Finished. Bigram model built.\n"
 	# rescue
 	# 	STDERR.puts "Could not open file"
@@ -55,7 +55,6 @@ end
 
 def mcw (word)
 	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
-		#puts "No words follow #{word}"
 		return -1
 	else
 		$bigrams[word].max_by{|k,v| v}[0]; #Find max number of times a word occurs after the given key
@@ -80,8 +79,11 @@ end
 def cleanup_title(line)
 	title = line.gsub(/((.*)>)/, '') #strip everything in front of song title
 	#Regex to filter multiple symbols
-	title = title.gsub(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|feat..*|\?.*|\¿.*|\!.*|\¡.*|\..*|\;.*|\&.*|\@.*|\%.*|\#.*/, '')
-	return title.downcase
+	title.gsub!(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|feat..*|\?.*|\¿.*|\!.*|\¡.*|\..*|\;.*|\&.*|\@.*|\%.*|\#.*/, '')
+	title = title.downcase
+	title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '')
+	title.gsub!(/\s\s+/, ' ')
+	return title
 end
 
 
