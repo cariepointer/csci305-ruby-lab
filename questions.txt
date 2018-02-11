@@ -1,8 +1,16 @@
 Your name
 CSCI-305
 
-10.
+10. The word "cat" gives the title: "cat blues for the world is a little girl in the world is a little girl in the world is"
+    The word "dog" gives the title: "dog blues for the world is a little girl in the world is a little girl in the world is"
+    The word "me" gives the title: "me to the world is a little girl in the world is a little girl in the world is a"
+    The word "they" gives the title: "they say goodbye to the world is a little girl in the world is a little girl in the world"
+    The word "cactus" gives the title: "cactus jack the world is a little girl in the world is a little girl in the world is a"
+    The word "lo" gives the title: "lo que te quiero ser feliz navidad negra tomasa"
 
+    "is a little girl in the world" is the most common phrase I have noticed. Since "is" follows a lot of words, once it
+    is added to the song title, the words following it will be the same. "for" is also another word that is common. Common words
+    such as "are" "they" "the" "a" "in" make the song titles run in a pattern
 14.
 
 15.
