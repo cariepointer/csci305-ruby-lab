@@ -31,7 +31,7 @@ def process_file(file_name)
 					hasKey = $bigrams[title[i]]
 					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]]
 
-					#break if title[i+1].nil? #break if this is the last word in the array --note: self test #4 fails when this is executed
+					break if title[i+1].nil? #break if this is the last word in the array --note: self test #4 fails when this is executed
 
 					if hasChild #if child of primary key exists, add one to the count
 						cur = $bigrams[title[i]][title[i+1]];
@@ -49,14 +49,37 @@ def process_file(file_name)
 				# 		#puts "YES"
 				# 	end
 				# }
+
 			end
 		end
-		#puts $bigrams;
+		#create_title('house')
 		puts "Finished. Bigram model built.\n"
 	# rescue
 	# 	STDERR.puts "Could not open file"
 	# 	exit 4
 	 end
+end
+
+def mcw (word)
+	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
+		puts "Not a key; no words follow #{word}"
+		return -1
+	else
+		$bigrams[word].max_by{|k,v| v}[0]; #Find max number of times a word occurs after the given key
+	end
+end
+
+def create_title (word)
+	p_title = word + ' '
+	num_words = 1
+
+	while num_words < 20 && mcw(word) != -1
+		p_title = p_title + mcw(word) + ' '
+		word = mcw(word)
+		num_words = num_words + 1
+	end
+	puts p_title
+
 end
 
 # Get song title
