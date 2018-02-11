@@ -43,16 +43,9 @@ def process_file(file_name)
 					end
 					i = i + 1;
 				end
-				#for each word in string
-				# title.each { |word|
-				# 	if $bigrams.key?(word)
-				# 		#puts "YES"
-				# 	end
-				# }
-
 			end
 		end
-		#create_title('house')
+		#puts mcw('happy')
 		puts "Finished. Bigram model built.\n"
 	# rescue
 	# 	STDERR.puts "Could not open file"
@@ -62,24 +55,25 @@ end
 
 def mcw (word)
 	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
-		puts "Not a key; no words follow #{word}"
+		#puts "No words follow #{word}"
 		return -1
 	else
 		$bigrams[word].max_by{|k,v| v}[0]; #Find max number of times a word occurs after the given key
 	end
 end
 
+#Generate probable title based on common occurances of words following a given word
 def create_title (word)
 	p_title = word + ' '
 	num_words = 1
 
-	while num_words < 20 && mcw(word) != -1
-		p_title = p_title + mcw(word) + ' '
-		word = mcw(word)
+	while num_words < 20 && mcw(word) != -1 #do until word key does not exist or until we have enough words in our title
+		p_title = p_title + mcw(word) + ' ' #Concatenate word to song title
+		word = mcw(word) #set new word
 		num_words = num_words + 1
 	end
-	puts p_title
-
+	p_title.gsub!(/\s$/, '') #remove trailing whitespace
+	return p_title
 end
 
 # Get song title
@@ -104,6 +98,16 @@ def main_loop()
 	process_file(ARGV[0])
 
 	# Get user input
+	choice = 'x'
+	while choice != 'q'
+		print "Enter a word [Enter 'q' to quit]: "
+		choice = $stdin.gets.chomp
+		if choice == 'q'
+			break
+		else
+			puts create_title(choice)
+		end
+	end
 end
 
 if __FILE__==$0
