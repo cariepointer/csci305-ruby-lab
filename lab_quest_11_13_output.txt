@@ -1,0 +1,12 @@
+...
+
+Finished in 0.13884 seconds (files took 1 minute 19.41 seconds to load)
+3 examples, 0 failures
+
+11. Using the starting word "amore", what song title do you get? -- amore mio babbino caro gianni schicchi
+12. Using the starting word "love", what song title do you get? -- love you are you are you are you are you are you are you are you are you are you
+13. Using the starting word "little", what song title do you get? -- little girl like you are you are you are you are you are you are you are you are you
+14. Explain why so many of the titles devolve into repeating patterns. -- Because common words such as "you" follow many different words as the top word.
+The top word that follows "you" is "are" and the top word that follows "are" is "you" so the pattern repeats to "you are you are.."
+15. Try several words. Find a song title that terminates in less than 20 words. Could you find one? If so, which song title did you find? If not, why not?
+The word "que" gives the song title: "que te quiero ser feliz navidad negra tomasa" which terminates in less than 20 words. 
