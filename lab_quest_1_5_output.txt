@@ -1,26 +1,5 @@
-..F..
+.....
 
-Failures:
+Finished in 0.00558 seconds (files took 27.47 seconds to load)
+5 examples, 0 failures
 
-  1) Lab Questions Check unique_tracks 3. Unique words following 'computer'
-     Failure/Error: expect($bigrams['computer'].count).to eq(58)
-
-       expected: 58
-            got: 57
-
-       (compared using ==)
-     # ./spec/lab_quest_1_5_spec.rb:16:in `block (3 levels) in <top (required)>'
-
-Finished in 0.04411 seconds (files took 18.83 seconds to load)
-5 examples, 1 failure
-
-Failed examples:
-
-rspec ./spec/lab_quest_1_5_spec.rb:15 # Lab Questions Check unique_tracks 3. Unique words following 'computer'
-
-
-1. Which word most often follows the word "happy"? -- birthday
-2. Which word most often follows the word "sad"? -- song
-3. How many different (unique) words follow the word "computer"? -- 58 (mine counted 57)
-4. Which word most often follows the word "computer"? -- love
-5. How many times does this word follow "computer"? -- 13
