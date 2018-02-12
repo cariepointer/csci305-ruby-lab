@@ -11,9 +11,11 @@ CSCI-305
     "is a little girl in the world" is the most common phrase I have noticed. Since "is" follows a lot of words, once it
     is added to the song title, the words following it will be the same. "for" is also another word that is common. Common words
     such as "are" "they" "the" "a" "in" make the song titles run in a pattern
-14.
+14. Explain why so many of the titles devolve into repeating patterns. -- Because common words such as "you" follow many different words as the top word.
+The top word that follows "you" is "are" and the top word that follows "are" is "you" so the pattern repeats to "you are you are.."
 
-15.
+15. Try several words. Find a song title that terminates in less than 20 words. Could you find one? If so, which song title did you find? If not, why not?
+The word "que" gives the song title: "que te quiero ser feliz navidad negra tomasa" which terminates in less than 20 words. 
 
 16.
 
