@@ -21,8 +21,8 @@ def process_file(file_name)
 			# call cleanup_title method to extract song titles
 			title = cleanup_title(line)
 
-			#ignore non-english characters
-			if title[/(\w|\s|\')*/] == title #filter out only english words
+			#ignore titles with non-english characters
+			if title[/(\w|\s|\')*/] == title
 
 				title = title.split
 				i = 0;
@@ -77,12 +77,14 @@ end
 
 # Get song title
 def cleanup_title(line)
-	title = line.gsub(/((.*)>)/, '') #strip everything in front of song title
+	title = line.gsub(/.*>/, '') #strip everything in front of song title
 	#Regex to filter multiple symbols
-	title.gsub!(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|feat..*|\?.*|\¿.*|\!.*|\¡.*|\..*|\;.*|\&.*|\@.*|\%.*|\#.*/, '')
+	title.gsub!(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|\*.*|feat\..*/, "")
+	title.gsub!(/(\?|\¿|\!|\¡|\.|\;|\&|\@|\%|\#|\|)*/, '')
 	title = title.downcase
-	title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '')
-	title.gsub!(/\s\s+/, ' ')
+	#title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '')
+	#title.gsub!(/\s\s+/, ' ')
+
 	return title
 end
 
