@@ -27,8 +27,8 @@ def process_file(file_name)
 				i = 0;
 
 				while i <= title.size-1 #loop through array of words
-					hasKey = $bigrams[title[i]]
-					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]]
+					hasKey = $bigrams[title[i]] #first word
+					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]] #second word that follows first
 					break if title[i+1].nil?  #break if this is the last word in the array
 
 					if hasChild #if child of primary key exists, add one to the count
