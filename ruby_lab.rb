@@ -61,14 +61,58 @@ def mcw (word)
 	end
 end
 
+#most common word, breaks ties
+def nmcw(word)
+	index = 0
+
+	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
+		return -1
+	else
+		max_val = $bigrams[word].max_by{|k,v| v}[1] #get max value
+		top_keys = $bigrams[word].select{|k, v| v == max_val}.keys #get keys that contain max value
+	end
+
+	#if more than one key is the max, randomly pick one
+	if !top_keys.empty?
+		index = rand(0...top_keys.size)
+	end
+
+	return top_keys[index]
+end
+
+def next2 (word)
+	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
+		return -1
+	else
+		sorted = $bigrams[word].sort_by{|k,v| v}.reverse.to_h.keys; #Find max number of times a word occurs after the given key
+	end
+end
+
 #Generate probable title based on common occurances of words following a given word
 def create_title (word)
 	p_title = word + ' '
 	num_words = 1
+	index = 0
 
-	while num_words < 20 && mcw(word) != -1 #do until word key does not exist or until we have enough words in our title
-		p_title = p_title + mcw(word) + ' ' #Concatenate word to song title
-		word = mcw(word) #set new word
+	while nmcw(word) != -1 #do until word key does not exist or until we have enough words in our title
+		i =1
+		next_words = next2(word)
+		p_array = p_title.split
+		word = nmcw(word)
+
+		while p_array.include? word
+			word = next_words[i]
+			#puts "next #{word}"
+			i = i+1
+		end
+
+		#if this word is nil, ignore it 
+		if word.nil?
+			break
+		end
+
+		p_title = p_title + word + ' '
+		index = index + 1
 		num_words = num_words + 1
 	end
 	p_title.gsub!(/\s$/, '') #remove trailing whitespace
@@ -82,9 +126,8 @@ def cleanup_title(line)
 	title.gsub!(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|\*.*|feat\..*/, "")
 	title.gsub!(/(\?|\¿|\!|\¡|\.|\;|\&|\@|\%|\#|\|)*/, '')
 	title = title.downcase
-	#title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '')
-	#title.gsub!(/\s\s+/, ' ')
-
+	title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '')
+	title.gsub!(/\s\s+/, ' ')
 	return title
 end
 
