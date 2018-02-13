@@ -66,32 +66,16 @@ def mcw(word)
 	return top_keys[index]
 end
 
-#Return list of top keys from a given word
-def getArray (word)
-	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
-		return -1
-	else
-		sorted = $bigrams[word].sort_by{|k,v| v}.reverse.to_h.keys; #Sort hash by max key value
-	end
-end
-
 #Generate probable title based on common occurances of words following a given word
 def create_title (word)
 	p_title = word + ' '
 	index = 0
-
 	#do until word key does not exist
 	while mcw(word) != -1
-		i = 1
-		next_words = getArray(word)
 		p_array = p_title.split
 		word = mcw(word)
-
 		#If the sentence already contains word, get next most common word from next_words
-		while p_array.include? word
-			word = next_words[i]
-			i += 1
-		end
+		break if p_array.include? word
 		#if this word is nil, ignore it
 		break if word.nil?
 		p_title = p_title + word + ' ' #Concatenate new word to sentence
