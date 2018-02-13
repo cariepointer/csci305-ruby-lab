@@ -23,14 +23,12 @@ def process_file(file_name)
 
 			#ignore titles with non-english characters
 			if title[/(\w|\s|\')*/] == title
-
 				title = title.split
 				i = 0;
 
 				while i <= title.size-1 #loop through array of words
 					hasKey = $bigrams[title[i]]
 					hasChild = $bigrams[title[i]] && $bigrams[title[i]][title[i+1]]
-
 					break if title[i+1].nil?  #break if this is the last word in the array
 
 					if hasChild #if child of primary key exists, add one to the count
@@ -45,15 +43,14 @@ def process_file(file_name)
 				end
 			end
 		end
-		#puts $bigrams
 		puts "Finished. Bigram model built.\n"
-	# rescue
-	# 	STDERR.puts "Could not open file"
-	# 	exit 4
+	rescue
+		STDERR.puts "Could not open file"
+		exit 4
 	 end
 end
 
-#most common word, breaks ties
+#Get most common word following a given word
 def mcw(word)
 	index = 0
 
@@ -64,15 +61,14 @@ def mcw(word)
 		top_keys = $bigrams[word].select{|k, v| v == max_val}.keys #get keys that contain max value
 	end
 
-	#if more than one key is the max, randomly pick one
-	if !top_keys.empty?
+	if !top_keys.empty? #if more than one key is the max, randomly pick one
 		index = rand(0...top_keys.size)
 	end
-
 	return top_keys[index]
 end
 
-def next2 (word)
+#Return list of top keys from a given word
+def getArray (word)
 	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
 		return -1
 	else
@@ -83,41 +79,37 @@ end
 #Generate probable title based on common occurances of words following a given word
 def create_title (word)
 	p_title = word + ' '
-	num_words = 1
 	index = 0
 
-	while mcw(word) != -1 #do until word key does not exist or until we have enough words in our title
+	#do until word key does not exist
+	while mcw(word) != -1
 		i = 1
-		next_words = next2(word)
+		next_words = getArray(word)
 		p_array = p_title.split
 		word = mcw(word)
 
+		#If the sentence already contains word, get next most common word from next_words
 		while p_array.include? word
 			word = next_words[i]
 			i = i + 1
 		end
-
 		#if this word is nil, ignore it
-		if word.nil?
-			break
-		end
+		break if word.nil?
 
-		p_title = p_title + word + ' '
+		p_title = p_title + word + ' ' #Concatenate new word to sentence
 		index = index + 1
-		num_words = num_words + 1
 	end
 	p_title.gsub!(/\s$/, '') #remove trailing whitespace
 	return p_title
 end
 
-# Get song title
+# Get song title using regular expressions
 def cleanup_title(line)
 	title = line.gsub(/.*>/, '') #strip everything in front of song title
-	#Regex to filter multiple symbols
-	title.gsub!(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|\*.*|feat\..*/, "")
-	title.gsub!(/(\?|\¿|\!|\¡|\.|\;|\&|\@|\%|\#|\|)*/, '')
+	title.gsub!(/\(.*|\[.*|\{.*|\\.*|\/.*|\_.*|\-.*|\:.*|\".*|\`.*|\+.*|\=.*|\*.*|feat\..*/, "") #Remove rest of title following given characters
+	title.gsub!(/(\?|\¿|\!|\¡|\.|\;|\&|\@|\%|\#|\|)*/, '') #remove special characters
 	title = title.downcase
-	title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '')
+	title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '') #remove stop words
 	title.gsub!(/\s\s+/, ' ')
 	return title
 end
@@ -136,7 +128,7 @@ def main_loop()
 	process_file(ARGV[0])
 
 	# Get user input
-	choice = 'x'
+	choice = ''
 	while choice != 'q'
 		print "Enter a word [Enter 'q' to quit]: "
 		choice = $stdin.gets.chomp
