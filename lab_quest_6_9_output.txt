@@ -1,9 +1,5 @@
 ....
 
-Finished in 0.21773 seconds (files took 17.92 seconds to load)
+Finished in 0.20187 seconds (files took 26.79 seconds to load)
 4 examples, 0 failures
 
-6. Using the starting word "happy", what song title do you get? -- happy birthday song for the world is a little girl in the world is a little girl in the world
-7. Using the starting word "sad", what song title do you get? -- sad song for the world is a little girl in the world is a little girl in the world is
-8. Using the starting word "hey", what song title do you get? -- hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey
-9. Using the starting word "little", what song title do you get? -- little girl in the world is a little girl in the world is a little girl in the world is
