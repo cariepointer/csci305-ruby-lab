@@ -15,20 +15,37 @@ CSCI-305
 The top word that follows "you" is "are" and the top word that follows "are" is "you" so the pattern repeats to "you are you are.."
 
 15. Try several words. Find a song title that terminates in less than 20 words. Could you find one? If so, which song title did you find? If not, why not?
-The word "que" gives the song title: "que te quiero ser feliz navidad negra tomasa" which terminates in less than 20 words. 
+The word "que" gives the song title: "que te quiero ser feliz navidad negra tomasa" which terminates in less than 20 words.
 
-16.
+16. For my "fix", I checked the current word against the words already existing in the sentence. If the sentence contains the word,
+then it picks the second most common word. If this word is not in the sentence, it is added. My fix will go through the list of words that
+follow a given word, until one is found that does not alrady exist. At first I attempted to only check the first few words in a sentence
+but I found out that many phrases 10-15 words long would repeat. Only allowing words in the title that have not already been added was
+the only way I found to avoid repetition of words/phrases.
 
-19.
+17. Using the a_tracks.txt file: "montana vs star is you ready love song about me down low frequency inversion field memories"
+    Using the unique_tracks.txt file: montana sacra nova scotia
+18. Using the a_tracks.txt file: "bob marley"
+    Using the unique_tracks.txt file: bob marley purt drive me down road blues night long way you are my heart is it up your love song about that i don't
+    know what do we go away manger throne grace god bless child mine all over rainbow connection 17 d minor op 64 bytes
+19. Using the a_tracks.txt file: "bob rogers".
+    Using the unique_tracks.txt file: bob marley song you are my heart is it up your love me down road blues night long way i don't know what do that girl like this time after all over rainbow connection 17 d minor op 64 bytes
+    This is different because the mcw method will randomly pick a top word if there are
+two that are tied.
 
-20.
+20. "cat king kings horses under influence" (from a_titles.txt)
 
-21.
+21. I enjoy the ease of using regular expressions. It makes it much simpler to enter a regular expression instead of having to use
+if statements for every possible string a word could be.
 
-22.
+22. I'm not a fan of having end statements at the end of blocks. Part of it is just me because I'm not used to having to do it. I
+find it easy to forget to add the end statement, which causes my program to crash sometimes.
 
-23.
+23. I thought this was a pretty decent first lab for learning ruby. I thought the instructions were well written and it was easy
+to understand the requirements. It took me a while to figure out how to structure my bigrams data structure, but I figured it out
+after banging my head against the wall a few times.
 
-24.
+24. 10-12
 
-25.
+25. I could see myself using ruby again. I'm not sure what kind of project I would personally use it for, but I do know that people use ruby to
+make applications, so that would be an option. I think it would be useful for web applications. 
