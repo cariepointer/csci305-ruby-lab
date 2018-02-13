@@ -32,14 +32,13 @@ def process_file(file_name)
 					break if title[i+1].nil?  #break if this is the last word in the array
 
 					if hasChild #if child of primary key exists, add one to the count
-						cur = $bigrams[title[i]][title[i+1]];
-						$bigrams[title[i]][title[i+1]] = cur + 1;
+						$bigrams[title[i]][title[i+1]] += 1;
 					elsif hasKey #if primary key exists, add new child with initial count = 1
 						$bigrams[title[i]][title[i+1]] = 1;
 					else #if primary key does not exist, add it and child key
 						$bigrams[title[i]] = {title[i+1] => 1};
 					end
-					i = i + 1;
+					i += 1;
 				end
 			end
 		end
@@ -72,7 +71,7 @@ def getArray (word)
 	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
 		return -1
 	else
-		sorted = $bigrams[word].sort_by{|k,v| v}.reverse.to_h.keys; #Find max number of times a word occurs after the given key
+		sorted = $bigrams[word].sort_by{|k,v| v}.reverse.to_h.keys; #Sort hash by max key value
 	end
 end
 
@@ -91,13 +90,12 @@ def create_title (word)
 		#If the sentence already contains word, get next most common word from next_words
 		while p_array.include? word
 			word = next_words[i]
-			i = i + 1
+			i += 1
 		end
 		#if this word is nil, ignore it
 		break if word.nil?
-
 		p_title = p_title + word + ' ' #Concatenate new word to sentence
-		index = index + 1
+		index += 1
 	end
 	p_title.gsub!(/\s$/, '') #remove trailing whitespace
 	return p_title
@@ -110,7 +108,7 @@ def cleanup_title(line)
 	title.gsub!(/(\?|\¿|\!|\¡|\.|\;|\&|\@|\%|\#|\|)*/, '') #remove special characters
 	title = title.downcase
 	title.gsub!(/\b(and|an|a|by|for|from|in|of|on|or|out|the|to|with)*\b/, '') #remove stop words
-	title.gsub!(/\s\s+/, ' ')
+	title.gsub!(/\s\s+/, ' ') #add whitespace between words
 	return title
 end
 
