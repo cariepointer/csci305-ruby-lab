@@ -74,10 +74,8 @@ def create_title (word)
 	while mcw(word) != -1
 		p_array = p_title.split
 		word = mcw(word)
-		#If the sentence already contains word, get next most common word from next_words
+		#If the sentence already contains word, break
 		break if p_array.include? word
-		#if this word is nil, ignore it
-		break if word.nil?
 		p_title = p_title + word + ' ' #Concatenate new word to sentence
 		index += 1
 	end
