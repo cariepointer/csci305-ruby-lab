@@ -53,16 +53,8 @@ def process_file(file_name)
 	 end
 end
 
-def mcw (word)
-	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
-		return -1
-	else
-		$bigrams[word].max_by{|k,v| v}[0]; #Find max number of times a word occurs after the given key
-	end
-end
-
 #most common word, breaks ties
-def nmcw(word)
+def mcw(word)
 	index = 0
 
 	if $bigrams[word].nil? #if key doesn't exist, then there are no words that follow the given word
@@ -94,19 +86,18 @@ def create_title (word)
 	num_words = 1
 	index = 0
 
-	while nmcw(word) != -1 #do until word key does not exist or until we have enough words in our title
-		i =1
+	while mcw(word) != -1 #do until word key does not exist or until we have enough words in our title
+		i = 1
 		next_words = next2(word)
 		p_array = p_title.split
-		word = nmcw(word)
+		word = mcw(word)
 
 		while p_array.include? word
 			word = next_words[i]
-			#puts "next #{word}"
-			i = i+1
+			i = i + 1
 		end
 
-		#if this word is nil, ignore it 
+		#if this word is nil, ignore it
 		if word.nil?
 			break
 		end
